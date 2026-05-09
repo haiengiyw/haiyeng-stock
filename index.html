@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ไฮ้เอ็ง Stock Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a2e;--paper:#f5f0e8;--paper2:#ede8dc;--paper3:#e2dbd0;
+  --accent:#c8381b;--green:#2d7a4f;--green-bg:#e8f5ee;
+  --gold:#9a6f00;--red-bg:#fdf0ee;--blue:#1d4ed8;
+  --muted:#7a7060;--border:rgba(26,26,46,0.10);
+  --font:'Sarabun',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --radius:14px;--shadow:0 2px 12px rgba(26,26,46,0.08);
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);display:flex;flex-direction:column;max-width:480px;margin:0 auto}
+.hdr{background:var(--ink);color:var(--paper);padding:16px 18px 20px;flex-shrink:0;position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:10px;background:var(--paper);border-radius:10px 10px 0 0}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:36px;height:36px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.brand-name{font-size:18px;font-weight:700}
+.brand-sub{font-size:10px;color:rgba(245,240,232,.45);font-family:var(--mono);margin-top:1px}
+.live-pill{display:flex;align-items:center;gap:5px;background:rgba(61,214,140,.12);border:1px solid rgba(61,214,140,.25);border-radius:20px;padding:3px 10px;font-size:11px;color:#3dd68c;font-family:var(--mono)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#3dd68c;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.tabs{display:flex;background:var(--paper);border-bottom:1px solid var(--border);flex-shrink:0}
+.tab{flex:1;padding:11px 4px;text-align:center;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;font-family:var(--font)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.screen{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.view{display:none;padding:14px 14px 90px}
+.view.active{display:block}
+.sec-label{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:18px 0 10px;display:flex;align-items:center;gap:6px}
+.sec-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.sec-label:first-child{margin-top:0}
+.sum-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px}
+.sum-card{background:white;border-radius:var(--radius);padding:12px 10px;text-align:center;border:1px solid var(--border);box-shadow:var(--shadow)}
+.sum-val{font-size:24px;font-weight:700;font-family:var(--mono);line-height:1}
+.sum-lbl{font-size:10px;color:var(--muted);margin-top:4px;font-family:var(--mono)}
+.alert-banner{background:var(--red-bg);border:1px solid rgba(200,56,27,.2);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:4px}
+.ab-icon{font-size:18px;flex-shrink:0}.ab-body{flex:1}
+.ab-title{font-size:13px;font-weight:600;color:var(--accent)}
+.ab-sub{font-size:11px;color:rgba(200,56,27,.7);margin-top:1px}
+.ab-arr{color:var(--muted);font-size:16px}
+.sku-row{background:white;border-radius:12px;padding:11px 13px;margin-bottom:6px;display:flex;align-items:center;gap:11px;border:1px solid var(--border);border-left:3px solid transparent;box-shadow:var(--shadow)}
+.sku-row.ok{border-left-color:var(--green)}.sku-row.low{border-left-color:var(--gold)}.sku-row.out{border-left-color:var(--accent)}
+.sku-body{flex:1;min-width:0}
+.sku-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sku-code{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+.pbar{height:3px;background:var(--paper3);border-radius:2px;margin-top:6px;overflow:hidden}
+.pfill{height:100%;border-radius:2px}
+.sku-right{text-align:right;flex-shrink:0}
+.sku-qty{font-size:21px;font-weight:700;font-family:var(--mono);line-height:1}
+.sku-unit{font-size:10px;color:var(--muted);margin-top:2px}
+.qty-green{color:var(--green)}.qty-gold{color:var(--gold)}.qty-red{color:var(--accent)}
+.search-wrap{position:relative;margin-bottom:10px}
+.search-wrap input{width:100%;background:white;border:1px solid var(--border);border-radius:10px;padding:10px 12px 10px 34px;font-size:13px;font-family:var(--font);color:var(--ink);outline:none;box-shadow:var(--shadow)}
+.s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--border);color:var(--muted);background:white;cursor:pointer;transition:all .15s;font-family:var(--mono)}
+.chip.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.log-row{background:white;border-radius:12px;padding:11px 13px;margin-bottom:6px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.log-top{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.log-name{flex:1;font-size:13px;font-weight:600;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.log-amt{font-size:13px;font-weight:700;font-family:var(--mono);flex-shrink:0}
+.log-meta{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;font-family:var(--mono);flex-shrink:0}
+.badge-in{background:var(--green-bg);color:var(--green)}.badge-out{background:var(--red-bg);color:var(--accent)}
+.doc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.doc-card{background:white;border-radius:var(--radius);padding:13px 11px;border:2px solid var(--border);text-align:center;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+.doc-card.sel-green{border-color:var(--green);background:var(--green-bg)}
+.doc-card.sel-red{border-color:var(--accent);background:var(--red-bg)}
+.doc-icon{font-size:28px;display:block;margin-bottom:6px}
+.doc-title{font-size:13px;font-weight:700}.doc-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.upload-zone{background:white;border-radius:var(--radius);border:2px dashed var(--border);padding:28px 16px;text-align:center;cursor:pointer;position:relative;box-shadow:var(--shadow);transition:border .2s;overflow:hidden}
+.upload-zone:hover{border-color:var(--accent)}
+.upload-zone.has-img{border-style:solid;border-color:var(--gold);padding:0}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2}
+.uz-icon{font-size:38px;display:block;margin-bottom:8px}
+.uz-title{font-size:14px;font-weight:600}.uz-sub{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5}
+#prevImg{width:100%;max-height:240px;object-fit:cover;display:block;border-radius:12px}
+.change-bar{background:rgba(26,26,46,.75);color:var(--paper);text-align:center;padding:7px;font-size:12px;cursor:pointer;display:none;position:relative;z-index:3}
+.send-btn{width:100%;padding:15px;background:var(--accent);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 5px 20px rgba(200,56,27,.3);transition:all .2s}
+.send-btn:hover{opacity:.9;transform:translateY(-1px)}
+.send-btn:disabled{background:var(--paper3);color:var(--muted);cursor:not-allowed;box-shadow:none;transform:none}
+.result-card{background:white;border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;margin-top:12px;display:none;box-shadow:var(--shadow)}
+.rc-head{padding:12px 15px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--border)}
+.rc-head.ok{background:var(--green-bg)}.rc-head.err{background:var(--red-bg)}.rc-head.loading{background:#f0f4ff}
+.rc-icon{font-size:20px}.rc-title{font-size:14px;font-weight:600}
+.rc-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+.rc-items{padding:8px}
+.rc-item{background:var(--paper);border-radius:9px;padding:9px 11px;margin-bottom:5px;display:flex;align-items:center;gap:9px;border:1px solid var(--border)}
+.rc-name{flex:1;font-size:13px;font-weight:600}
+.rc-sku{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:1px}
+.rc-qty{font-size:15px;font-weight:700;font-family:var(--mono)}
+.again-btn{display:none;width:calc(100% - 16px);margin:4px 8px 10px;padding:11px;background:var(--ink);color:var(--paper);border:none;border-radius:9px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer}
+.empty{text-align:center;padding:44px 16px;color:var(--muted);font-size:13px;line-height:1.9}
+.empty .e-icon{font-size:40px;display:block;margin-bottom:10px}
+.spinner{width:17px;height:17px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bnav{display:flex;background:white;border-top:1px solid var(--border);flex-shrink:0;box-shadow:0 -2px 12px rgba(26,26,46,.06)}
+.bni{flex:1;padding:9px 4px 13px;text-align:center;font-size:10px;color:var(--muted);cursor:pointer;border:none;background:transparent;font-family:var(--font);transition:color .15s}
+.bni .ni{font-size:22px;display:block;margin-bottom:2px}
+.bni.active{color:var(--accent)}
+.refresh-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);background:white;border:1px solid var(--border);border-radius:8px;padding:5px 10px;cursor:pointer;margin-top:10px}
+.pbar-wrap{width:100%;height:4px;background:var(--paper3);border-radius:2px;margin-top:8px;overflow:hidden;display:none}
+.pbar-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .5s ease}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="brand">
+      <div class="brand-icon">🏭</div>
+      <div>
+        <div class="brand-name">ไฮ้เอ็ง</div>
+        <div class="brand-sub">STOCK MANAGER</div>
+      </div>
+    </div>
+    <div class="live-pill"><div class="live-dot"></div>LIVE</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="go('dash')">📊 Dashboard</div>
+  <div class="tab" onclick="go('stock')">📦 สต็อก</div>
+  <div class="tab" onclick="go('log')">📋 ประวัติ</div>
+  <div class="tab" onclick="go('scan')">📷 สแกน</div>
+</div>
+
+<div class="screen">
+
+  <div class="view active" id="view-dash">
+    <div class="sum-grid">
+      <div class="sum-card"><div class="sum-val" id="dTotal" style="color:var(--blue)">0</div><div class="sum-lbl">SKU ทั้งหมด</div></div>
+      <div class="sum-card"><div class="sum-val" id="dLow" style="color:var(--gold)">0</div><div class="sum-lbl">ใกล้หมด</div></div>
+      <div class="sum-card"><div class="sum-val" id="dOut" style="color:var(--accent)">0</div><div class="sum-lbl">หมดแล้ว</div></div>
+    </div>
+    <div class="alert-banner" id="alertBanner" onclick="go('stock')" style="display:none">
+      <div class="ab-icon">⚠️</div>
+      <div class="ab-body"><div class="ab-title" id="alertTitle"></div><div class="ab-sub">แตะเพื่อดูรายละเอียด</div></div>
+      <div class="ab-arr">›</div>
+    </div>
+    <div class="sec-label">วันนี้ — <span id="todayDate" style="color:var(--ink);font-weight:600;text-transform:none;letter-spacing:0"></span></div>
+    <div class="sum-grid" style="margin-bottom:14px">
+      <div class="sum-card"><div class="sum-val" id="dInToday" style="color:var(--green)">0</div><div class="sum-lbl">IN วันนี้</div></div>
+      <div class="sum-card"><div class="sum-val" id="dOutToday" style="color:var(--accent)">0</div><div class="sum-lbl">OUT วันนี้</div></div>
+      <div class="sum-card"><div class="sum-val" id="dScans" style="color:var(--ink)">0</div><div class="sum-lbl">สแกนวันนี้</div></div>
+    </div>
+    <div class="sec-label">กิจกรรมล่าสุด</div>
+    <div id="recentLog"></div>
+    <div style="text-align:center">
+      <button class="refresh-btn" id="refreshBtn" onclick="loadSheets()">⟳ โหลดข้อมูลใหม่</button>
+    </div>
+  </div>
+
+  <div class="view" id="view-stock">
+    <div class="search-wrap"><span class="s-icon">🔍</span><input placeholder="ค้นหาสินค้า..." id="skuSearch" oninput="renderStock()"></div>
+    <div class="chips" id="sfChips">
+      <span class="chip active" onclick="sf('all',this)">ทั้งหมด</span>
+      <span class="chip" onclick="sf('out',this)">🔴 หมด</span>
+      <span class="chip" onclick="sf('low',this)">🟡 ใกล้หมด</span>
+      <span class="chip" onclick="sf('ok',this)">🟢 ปกติ</span>
+    </div>
+    <div id="stockList"></div>
+  </div>
+
+  <div class="view" id="view-log">
+    <div class="chips" id="lfChips">
+      <span class="chip active" onclick="lf('all',this)">ทั้งหมด</span>
+      <span class="chip" onclick="lf('IN',this)">📦 IN</span>
+      <span class="chip" onclick="lf('OUT',this)">🧾 OUT</span>
+    </div>
+    <div id="logList"></div>
+  </div>
+
+  <div class="view" id="view-scan">
+    <div class="sec-label">ประเภทเอกสาร</div>
+    <div class="doc-row">
+      <div class="doc-card sel-green" id="din" onclick="setDT('in')">
+        <span class="doc-icon">📦</span>
+        <div class="doc-title">รับสินค้าเข้า</div>
+        <div class="doc-sub">IN · Receiving</div>
+      </div>
+      <div class="doc-card" id="dout" onclick="setDT('out')">
+        <span class="doc-icon">🧾</span>
+        <div class="doc-title">จ่ายออก / ขาย</div>
+        <div class="doc-sub">OUT · Selling bill</div>
+      </div>
+    </div>
+    <div class="sec-label">รูปเอกสาร</div>
+    <div class="upload-zone" id="zone">
+      <input type="file" accept="image/*" id="fileIn" onchange="onFile(event)">
+      <span class="uz-icon">📷</span>
+      <div class="uz-title">แตะเพื่อถ่ายรูปหรือเลือกไฟล์</div>
+      <div class="uz-sub">รองรับลายมือ ภาษาไทย / อังกฤษ / ผสม</div>
+    </div>
+    <div class="change-bar" id="changeBar" onclick="resetFile()">🔄 เปลี่ยนรูป</div>
+    <button class="send-btn" id="sendBtn" onclick="doSend()" disabled>
+      📤 ส่งและบันทึกสต็อก
+    </button>
+    <div class="pbar-wrap" id="pbarWrap"><div class="pbar-fill" id="pbarFill" style="width:0%"></div></div>
+    <div class="result-card" id="resultCard">
+      <div class="rc-head loading" id="rcHead">
+        <span class="rc-icon" id="rcIcon">⏳</span>
+        <div>
+          <div class="rc-title" id="rcTitle">กำลังส่งและอ่าน AI...</div>
+          <div class="rc-sub" id="rcSub">Gemini AI กำลังวิเคราะห์ลายมือ</div>
+        </div>
+      </div>
+      <div class="rc-items" id="rcItems"></div>
+      <button class="again-btn" id="againBtn" onclick="resetFile()">📷 สแกนเอกสารถัดไป</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="bnav">
+  <button class="bni active" onclick="go('dash')"><span class="ni">📊</span>Dashboard</button>
+  <button class="bni" onclick="go('stock')"><span class="ni">📦</span>สต็อก</button>
+  <button class="bni" onclick="go('log')"><span class="ni">📋</span>ประวัติ</button>
+  <button class="bni" onclick="go('scan')"><span class="ni">📷</span>สแกน</button>
+</div>
+
+<script>
+const GAS = 'https://script.google.com/macros/s/AKfycbwPxz0isHw86a4tWHdPkByt7oIvCXN30oklNOIy9naW2Eic1OHd5zT6cbRelV94Bos/exec';
+const SKUS = [
+  {code:'PLT-001',name:'ถุงพลาสติก PE 30x40',unit:'ถุง',min:1000},
+  {code:'PLT-002',name:'ถุงพลาสติก PE 40x60',unit:'ถุง',min:500},
+  {code:'PLT-003',name:'ถุงพลาสติก PP ใส 20x30',unit:'ถุง',min:1000},
+  {code:'PLT-004',name:'ถุงซิป 15x20',unit:'ถุง',min:500},
+  {code:'PLT-005',name:'ถุงหูหิ้ว ขาว S',unit:'ถุง',min:500},
+  {code:'PLT-006',name:'ถุงหูหิ้ว ขาว M',unit:'ถุง',min:500},
+  {code:'PLT-007',name:'ถุงหูหิ้ว ขาว L',unit:'ถุง',min:300},
+  {code:'PLT-008',name:'ฟิล์มยืด PE Wrap',unit:'ม้วน',min:20},
+  {code:'PLT-009',name:'เม็ดพลาสติก PP',unit:'กก.',min:100},
+  {code:'PLT-010',name:'เม็ดพลาสติก PE',unit:'กก.',min:100},
+  {code:'PLT-011',name:'สี Masterbatch ขาว',unit:'กก.',min:20},
+  {code:'PLT-012',name:'สี Masterbatch ดำ',unit:'กก.',min:20},
+  {code:'PLT-013',name:'กล่องพลาสติก PP ใส',unit:'ใบ',min:200},
+  {code:'PLT-014',name:'ฝาครอบพลาสติก',unit:'ชิ้น',min:500},
+  {code:'PLT-015',name:'เชือกฟาง',unit:'ม้วน',min:30},
+  {code:'PLT-016',name:'เทปพันสายไฟ',unit:'ม้วน',min:50},
+  {code:'PLT-017',name:'ถุงขยะดำ 30x40',unit:'ถุง',min:300},
+  {code:'PLT-018',name:'ถุงขยะดำ 50x60',unit:'ถุง',min:200},
+  {code:'PLT-019',name:'ถาดพลาสติก PP',unit:'ใบ',min:100},
+  {code:'PLT-020',name:'ฝาปิดพลาสติก กลม',unit:'ชิ้น',min:300},
+];
+
+let txns=[],stockMap={},docType='in',imgB64=null,imgMime='image/jpeg',sf_='all',lf_='all';
+
+window.onload=()=>{
+  document.getElementById('todayDate').textContent=new Date().toLocaleDateString('th-TH',{day:'numeric',month:'long'});
+  loadLocal();
+  loadSheets();
+};
+
+async function loadSheets(){
+  const btn=document.getElementById('refreshBtn');
+  if(btn)btn.textContent='⟳ กำลังโหลด...';
+  try{
+    const r=await fetch(GAS+'?action=getData');
+    const d=await r.json();
+    if(d.transactions){txns=d.transactions;localStorage.setItem('hi_txns',JSON.stringify(txns));}
+  }catch(e){}
+  finally{if(btn)btn.textContent='⟳ โหลดข้อมูลใหม่';}
+  computeStock();renderAll();
+}
+
+function loadLocal(){
+  try{txns=JSON.parse(localStorage.getItem('hi_txns')||'[]');}catch(e){txns=[];}
+  computeStock();renderAll();
+}
+
+function computeStock(){
+  stockMap={};
+  SKUS.forEach(s=>{stockMap[s.code]={code:s.code,name:s.name,unit:s.unit,min:s.min,qty:0};});
+  txns.forEach(t=>{
+    const k=t.skuCode||t.sku_code;if(!k)return;
+    if(!stockMap[k])stockMap[k]={code:k,name:t.name||k,unit:t.unit||'',min:0,qty:0};
+    stockMap[k].qty+=t.type==='IN'?Number(t.qty):-Number(t.qty);
+  });
+}
+
+function renderAll(){renderDash();renderStock();renderLog();}
+
+function renderDash(){
+  const items=Object.values(stockMap);
+  const low=items.filter(s=>s.qty>0&&s.qty<=s.min).length;
+  const out=items.filter(s=>s.qty<=0).length;
+  document.getElementById('dTotal').textContent=items.length;
+  document.getElementById('dLow').textContent=low;
+  document.getElementById('dOut').textContent=out;
+  const banner=document.getElementById('alertBanner');
+  if(low+out>0){banner.style.display='flex';document.getElementById('alertTitle').textContent=out+' รายการหมด · '+low+' ใกล้หมด';}
+  else banner.style.display='none';
+  const today=new Date().toISOString().slice(0,10);
+  const td=txns.filter(t=>t.date===today);
+  document.getElementById('dInToday').textContent=td.filter(t=>t.type==='IN').reduce((a,t)=>a+Number(t.qty),0);
+  document.getElementById('dOutToday').textContent=td.filter(t=>t.type==='OUT').reduce((a,t)=>a+Number(t.qty),0);
+  document.getElementById('dScans').textContent=td.length;
+  const rec=txns.slice(0,6);
+  document.getElementById('recentLog').innerHTML=rec.length?rec.map(logHtml).join(''):'<div class="empty"><span class="e-icon">📊</span>ยังไม่มีรายการ<br>สแกนเอกสารแรกได้เลย</div>';
+}
+
+function logHtml(t){
+  return '<div class="log-row"><div class="log-top"><span class="badge '+(t.type==='IN'?'badge-in':'badge-out')+'">'+t.type+'</span><span class="log-name">'+(t.name||t.skuCode||'')+'</span><span class="log-amt" style="color:'+(t.type==='IN'?'var(--green)':'var(--accent)')+';">'+(t.type==='IN'?'+':'-')+t.qty+' '+(t.unit||'')+'</span></div><div class="log-meta">'+(t.date||'')+' '+(t.time||'')+' · '+(t.skuCode||'')+'</div></div>';
+}
+
+function sf(f,el){sf_=f;document.querySelectorAll('#sfChips .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderStock();}
+function renderStock(){
+  const q=(document.getElementById('skuSearch')?.value||'').toLowerCase();
+  let items=Object.values(stockMap).filter(s=>!q||s.name.toLowerCase().includes(q)||s.code.toLowerCase().includes(q));
+  if(sf_==='out')items=items.filter(s=>s.qty<=0);
+  else if(sf_==='low')items=items.filter(s=>s.qty>0&&s.qty<=s.min);
+  else if(sf_==='ok')items=items.filter(s=>s.qty>s.min);
+  items.sort((a,b)=>a.qty-b.qty);
+  if(!items.length){document.getElementById('stockList').innerHTML='<div class="empty"><span class="e-icon">📦</span>ไม่พบสินค้า</div>';return;}
+  document.getElementById('stockList').innerHTML=items.map(s=>{
+    const pct=s.min?Math.min(100,(s.qty/Math.max(s.min*3,1))*100):50;
+    const st=s.qty<=0?'out':s.qty<=s.min?'low':'ok';
+    const qc=st==='out'?'qty-red':st==='low'?'qty-gold':'qty-green';
+    const pc=st==='out'?'var(--accent)':st==='low'?'var(--gold)':'var(--green)';
+    return '<div class="sku-row '+st+'"><div class="sku-body"><div class="sku-name">'+s.name+'</div><div class="sku-code">'+s.code+'</div><div class="pbar"><div class="pfill" style="width:'+pct+'%;background:'+pc+'"></div></div></div><div class="sku-right"><div class="sku-qty '+qc+'">'+s.qty+'</div><div class="sku-unit">'+s.unit+'</div></div></div>';
+  }).join('');
+}
+
+function lf(f,el){lf_=f;document.querySelectorAll('#lfChips .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderLog();}
+function renderLog(){
+  let list=[...txns];if(lf_!=='all')list=list.filter(t=>t.type===lf_);
+  document.getElementById('logList').innerHTML=list.length?list.slice(0,100).map(logHtml).join(''):'<div class="empty"><span class="e-icon">📋</span>ยังไม่มีรายการ</div>';
+}
+
+function setDT(t){
+  docType=t;
+  document.getElementById('din').className='doc-card'+(t==='in'?' sel-green':'');
+  document.getElementById('dout').className='doc-card'+(t==='out'?' sel-red':'');
+}
+
+function onFile(e){
+  const f=e.target.files[0];if(!f)return;
+  imgMime=f.type||'image/jpeg';
+  const r=new FileReader();
+  r.onload=ev=>{
+    imgB64=ev.target.result.split(',')[1];
+    const z=document.getElementById('zone');
+    z.classList.add('has-img');z.querySelector('input').style.display='none';
+    let img=document.getElementById('prevImg');
+    if(!img){img=document.createElement('img');img.id='prevImg';z.appendChild(img);}
+    img.src=ev.target.result;
+    document.getElementById('changeBar').style.display='block';
+    document.getElementById('sendBtn').disabled=false;
+    document.getElementById('resultCard').style.display='none';
+  };
+  r.readAsDataURL(f);
+}
+
+function resetFile(){
+  imgB64=null;document.getElementById('fileIn').value='';
+  const z=document.getElementById('zone');z.classList.remove('has-img');z.querySelector('input').style.display='block';
+  const img=document.getElementById('prevImg');if(img)img.remove();
+  document.getElementById('changeBar').style.display='none';
+  document.getElementById('sendBtn').disabled=true;
+  document.getElementById('resultCard').style.display='none';
+  document.getElementById('againBtn').style.display='none';
+  document.getElementById('pbarWrap').style.display='none';
+}
+
+function prog(pct,sub){
+  document.getElementById('pbarWrap').style.display='block';
+  document.getElementById('pbarFill').style.width=pct+'%';
+  if(sub)document.getElementById('rcSub').textContent=sub;
+}
+
+async function doSend(){
+  if(!imgB64)return;
+  const btn=document.getElementById('sendBtn');
+  btn.disabled=true;btn.innerHTML='<div class="spinner"></div> กำลังส่ง...';
+  document.getElementById('resultCard').style.display='block';
+  document.getElementById('rcHead').className='rc-head loading';
+  document.getElementById('rcIcon').textContent='⏳';
+  document.getElementById('rcTitle').textContent='กำลังส่งไปยัง AI...';
+  document.getElementById('rcSub').textContent='Gemini AI กำลังวิเคราะห์ลายมือ';
+  document.getElementById('rcItems').innerHTML='';
+  document.getElementById('againBtn').style.display='none';
+  prog(10,'ส่งรูปไปยัง Gemini AI...');
+
+  try{
+    // ส่งแบบ no-cors เพื่อหลีกเลี่ยง CORS
+    const fd=new FormData();
+    fd.append('imageBase64',imgB64);
+    fd.append('mimeType',imgMime);
+    fd.append('docType',docType);
+    fd.append('timestamp',new Date().toISOString());
+    await fetch(GAS,{method:'POST',body:fd,mode:'no-cors'});
+
+    prog(30,'AI กำลังอ่านลายมือ...');
+    document.getElementById('rcTitle').textContent='AI กำลังวิเคราะห์...';
+
+    // Polling ทุก 3 วินาที รอสูงสุด 60 วินาที
+    let result=null;
+    const start=Date.now();
+    while(Date.now()-start<60000){
+      await new Promise(r=>setTimeout(r,3000));
+      const elapsed=Math.round((Date.now()-start)/1000);
+      prog(Math.min(90,30+(elapsed/60)*60),'รอผล AI... '+elapsed+'s');
+      try{
+        const r=await fetch(GAS+'?action=getLatest&t='+Date.now());
+        const d=await r.json();
+        if(d.success&&d.items&&d.items.length>0){result=d;break;}
+        if(d.success===false&&!d.pending){throw new Error(d.error||'AI ไม่พบรายการ');}
+      }catch(pe){
+        if(pe.message&&!pe.message.includes('fetch')){throw pe;}
+      }
+    }
+
+    if(!result)throw new Error('AI ใช้เวลานานเกินไป — ลองใหม่อีกครั้ง');
+
+    // บันทึกลง local
+    prog(100,'สำเร็จ!');
+    const now=new Date();
+    const ds=now.toISOString().slice(0,10);
+    const ts=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+    result.items.forEach(it=>{
+      txns.unshift({date:ds,time:ts,skuCode:it.sku_code||'',name:it.name,type:it.type,qty:it.qty,unit:it.unit||''});
+    });
+    localStorage.setItem('hi_txns',JSON.stringify(txns.slice(0,300)));
+    computeStock();renderAll();
+
+    document.getElementById('rcHead').className='rc-head ok';
+    document.getElementById('rcIcon').textContent='✅';
+    document.getElementById('rcTitle').textContent='บันทึกแล้ว '+result.items.length+' รายการ';
+    document.getElementById('rcSub').textContent='ความแม่นยำ '+Math.round((result.confidence||0)*100)+'%';
+    document.getElementById('rcItems').innerHTML=result.items.map(it=>'<div class="rc-item"><span class="badge '+(it.type==='IN'?'badge-in':'badge-out')+'">'+it.type+'</span><div style="flex:1"><div class="rc-name">'+it.name+'</div><div class="rc-sku">'+(it.sku_code||'—')+'</div></div><div><div class="rc-qty" style="color:'+(it.type==='IN'?'var(--green)':'var(--accent)')+';">'+(it.type==='IN'?'+':'-')+it.qty+'</div><div style="font-size:10px;color:var(--muted)">'+(it.unit||'')+'</div></div></div>').join('');
+
+  }catch(err){
+    document.getElementById('rcHead').className='rc-head err';
+    document.getElementById('rcIcon').textContent='❌';
+    document.getElementById('rcTitle').textContent='เกิดข้อผิดพลาด';
+    document.getElementById('rcSub').textContent=err.message;
+    document.getElementById('rcItems').innerHTML='<div style="padding:10px;font-size:12px;color:var(--muted)">ลองใหม่หรือแจ้งผู้จัดการ</div>';
+  }finally{
+    btn.disabled=false;btn.textContent='📤 ส่งและบันทึกสต็อก';
+    document.getElementById('againBtn').style.display='block';
+    setTimeout(()=>document.getElementById('pbarWrap').style.display='none',2000);
+  }
+}
+
+function go(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab,.bni').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  const i={dash:0,stock:1,log:2,scan:3}[name];
+  document.querySelectorAll('.tab')[i]?.classList.add('active');
+  document.querySelectorAll('.bni')[i]?.classList.add('active');
+  if(name==='stock')renderStock();
+  if(name==='log')renderLog();
+}
+</script>
+</body>
+</html>

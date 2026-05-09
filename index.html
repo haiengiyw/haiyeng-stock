@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -8,81 +9,55 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#1a1a2e;--ink2:#2d2d4e;
-  --paper:#f5f0e8;--paper2:#ede8dc;--paper3:#e2dbd0;
-  --accent:#c8381b;--accent2:#e04422;
-  --green:#2d7a4f;--green-bg:#e8f5ee;--green-light:#d1edd9;
-  --gold:#9a6f00;--gold-bg:#fef9e7;
-  --red-bg:#fdf0ee;--blue:#1d4ed8;
+  --ink:#1a1a2e;--paper:#f5f0e8;--paper2:#ede8dc;--paper3:#e2dbd0;
+  --accent:#c8381b;--green:#2d7a4f;--green-bg:#e8f5ee;
+  --gold:#9a6f00;--red-bg:#fdf0ee;--blue:#1d4ed8;
   --muted:#7a7060;--border:rgba(26,26,46,0.10);
-  --font:'Sarabun',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --font:"Sarabun",sans-serif;--mono:"IBM Plex Mono",monospace;
   --radius:14px;--shadow:0 2px 12px rgba(26,26,46,0.08);--shadow-md:0 4px 20px rgba(26,26,46,0.12);
 }
 html,body{height:100%;overflow:hidden}
-body{font-family:var(--font);background:var(--paper);color:var(--ink);display:flex;flex-direction:column;max-width:480px;margin:0 auto;position:relative}
-
-/* ── HEADER ── */
+body{font-family:var(--font);background:var(--paper);color:var(--ink);display:flex;flex-direction:column;max-width:480px;margin:0 auto}
 .hdr{background:var(--ink);color:var(--paper);padding:16px 18px 20px;flex-shrink:0;position:relative;overflow:hidden}
-.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:10px;background:var(--paper);border-radius:10px 10px 0 0}
+.hdr::after{content:"";position:absolute;bottom:-1px;left:0;right:0;height:10px;background:var(--paper);border-radius:10px 10px 0 0}
 .hdr-inner{display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:10px}
 .brand-icon{width:36px;height:36px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.brand-name{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.brand-name{font-size:18px;font-weight:700}
 .brand-sub{font-size:10px;color:rgba(245,240,232,.45);font-family:var(--mono);margin-top:1px}
 .live-pill{display:flex;align-items:center;gap:5px;background:rgba(61,214,140,.12);border:1px solid rgba(61,214,140,.25);border-radius:20px;padding:3px 10px;font-size:11px;color:#3dd68c;font-family:var(--mono)}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#3dd68c;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* ── TABS ── */
 .tabs{display:flex;background:var(--paper);border-bottom:1px solid var(--border);flex-shrink:0}
 .tab{flex:1;padding:11px 4px;text-align:center;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;font-family:var(--font)}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
-
-/* ── SCREEN ── */
 .screen{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
 .screen::-webkit-scrollbar{display:none}
 .view{display:none;padding:14px 14px 90px}
 .view.active{display:block}
-
-/* ── LABELS ── */
 .sec-label{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:18px 0 10px;display:flex;align-items:center;gap:6px}
-.sec-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.sec-label::after{content:"";flex:1;height:.5px;background:var(--border)}
 .sec-label:first-child{margin-top:0}
-
-/* ── SUMMARY CARDS ── */
 .sum-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px}
 .sum-card{background:white;border-radius:var(--radius);padding:12px 10px;text-align:center;border:1px solid var(--border);box-shadow:var(--shadow)}
 .sum-val{font-size:24px;font-weight:700;font-family:var(--mono);line-height:1}
 .sum-lbl{font-size:10px;color:var(--muted);margin-top:4px;font-family:var(--mono)}
-
-/* ── ALERT BANNER ── */
-.alert-banner{background:var(--red-bg);border:1px solid rgba(200,56,27,.2);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:4px;transition:background .15s}
-.alert-banner:hover{background:#fbebe8}
-.ab-icon{font-size:18px;flex-shrink:0}
-.ab-body{flex:1}
+.alert-banner{background:var(--red-bg);border:1px solid rgba(200,56,27,.2);border-radius:var(--radius);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:4px}
+.ab-icon{font-size:18px;flex-shrink:0}.ab-body{flex:1}
 .ab-title{font-size:13px;font-weight:600;color:var(--accent)}
 .ab-sub{font-size:11px;color:rgba(200,56,27,.7);margin-top:1px}
 .ab-arr{color:var(--muted);font-size:16px}
-
-/* ── STOCK LIST ── */
-.sku-row{background:white;border-radius:12px;padding:11px 13px;margin-bottom:6px;display:flex;align-items:center;gap:11px;border-left:3px solid transparent;border:1px solid var(--border);border-left-width:3px;box-shadow:var(--shadow);transition:all .15s;cursor:pointer}
-.sku-row:active{transform:scale(.99)}
-.sku-row.ok{border-left-color:var(--green)}
-.sku-row.low{border-left-color:var(--gold)}
-.sku-row.out{border-left-color:var(--accent)}
+.sku-row{background:white;border-radius:12px;padding:11px 13px;margin-bottom:6px;display:flex;align-items:center;gap:11px;border:1px solid var(--border);border-left:3px solid transparent;box-shadow:var(--shadow)}
+.sku-row.ok{border-left-color:var(--green)}.sku-row.low{border-left-color:var(--gold)}.sku-row.out{border-left-color:var(--accent)}
 .sku-body{flex:1;min-width:0}
 .sku-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sku-code{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
 .pbar{height:3px;background:var(--paper3);border-radius:2px;margin-top:6px;overflow:hidden}
-.pfill{height:100%;border-radius:2px;transition:width .6s ease}
+.pfill{height:100%;border-radius:2px}
 .sku-right{text-align:right;flex-shrink:0}
 .sku-qty{font-size:21px;font-weight:700;font-family:var(--mono);line-height:1}
 .sku-unit{font-size:10px;color:var(--muted);margin-top:2px}
-.qty-green{color:var(--green)}
-.qty-gold{color:var(--gold)}
-.qty-red{color:var(--accent)}
-
-/* ── SEARCH & FILTER ── */
+.qty-green{color:var(--green)}.qty-gold{color:var(--gold)}.qty-red{color:var(--accent)}
 .search-wrap{position:relative;margin-bottom:10px}
 .search-wrap input{width:100%;background:white;border:1px solid var(--border);border-radius:10px;padding:10px 12px 10px 34px;font-size:13px;font-family:var(--font);color:var(--ink);outline:none;box-shadow:var(--shadow)}
 .search-wrap input:focus{border-color:var(--accent)}
@@ -90,25 +65,19 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .chip{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--border);color:var(--muted);background:white;cursor:pointer;transition:all .15s;font-family:var(--mono)}
 .chip.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-
-/* ── LOG ── */
 .log-row{background:white;border-radius:12px;padding:11px 13px;margin-bottom:6px;border:1px solid var(--border);box-shadow:var(--shadow)}
 .log-top{display:flex;align-items:center;gap:7px;margin-bottom:3px}
 .log-name{flex:1;font-size:13px;font-weight:600;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .log-amt{font-size:13px;font-weight:700;font-family:var(--mono);flex-shrink:0}
 .log-meta{font-size:11px;color:var(--muted);font-family:var(--mono)}
 .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;font-family:var(--mono);flex-shrink:0}
-.badge-in{background:var(--green-bg);color:var(--green)}
-.badge-out{background:var(--red-bg);color:var(--accent)}
-
-/* ── SCAN VIEW ── */
+.badge-in{background:var(--green-bg);color:var(--green)}.badge-out{background:var(--red-bg);color:var(--accent)}
 .doc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .doc-card{background:white;border-radius:var(--radius);padding:13px 11px;border:2px solid var(--border);text-align:center;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
 .doc-card.sel-green{border-color:var(--green);background:var(--green-bg)}
 .doc-card.sel-red{border-color:var(--accent);background:var(--red-bg)}
 .doc-icon{font-size:28px;display:block;margin-bottom:6px}
-.doc-title{font-size:13px;font-weight:700}
-.doc-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.doc-title{font-size:13px;font-weight:700}.doc-sub{font-size:11px;color:var(--muted);margin-top:2px}
 .upload-zone{background:white;border-radius:var(--radius);border:2px dashed var(--border);padding:28px 16px;text-align:center;cursor:pointer;position:relative;box-shadow:var(--shadow);transition:border .2s;overflow:hidden}
 .upload-zone:hover{border-color:var(--accent)}
 .upload-zone.has-img{border-style:solid;border-color:var(--gold);padding:0}
@@ -124,11 +93,8 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
 .result-card{background:white;border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;margin-top:12px;display:none;animation:up .3s ease;box-shadow:var(--shadow-md)}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .rc-head{padding:12px 15px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--border)}
-.rc-head.ok{background:var(--green-bg)}
-.rc-head.err{background:var(--red-bg)}
-.rc-head.loading{background:#f0f4ff}
-.rc-icon{font-size:20px}
-.rc-title{font-size:14px;font-weight:600}
+.rc-head.ok{background:var(--green-bg)}.rc-head.err{background:var(--red-bg)}.rc-head.loading{background:#f0f4ff}
+.rc-icon{font-size:20px}.rc-title{font-size:14px;font-weight:600}
 .rc-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px}
 .rc-items{padding:8px}
 .rc-item{background:var(--paper);border-radius:9px;padding:9px 11px;margin-bottom:5px;display:flex;align-items:center;gap:9px;border:1px solid var(--border)}
@@ -136,8 +102,6 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
 .rc-sku{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:1px}
 .rc-qty{font-size:15px;font-weight:700;font-family:var(--mono)}
 .again-btn{display:none;width:calc(100% - 16px);margin:4px 8px 10px;padding:11px;background:var(--ink);color:var(--paper);border:none;border-radius:9px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer}
-
-/* ── SETUP CARD ── */
 .setup-card{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:15px;margin-bottom:14px}
 .setup-card.hide{display:none}
 .setup-title{font-size:13px;font-weight:600;margin-bottom:5px}
@@ -146,30 +110,23 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
 .setup-input::placeholder{color:rgba(245,240,232,.3)}
 .setup-save{width:100%;padding:9px;background:var(--accent);color:white;border:none;border-radius:7px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer}
 .setup-ok{font-size:11px;color:#86efac;margin-top:5px;display:none;font-family:var(--mono)}
-
-/* ── EMPTY STATE ── */
 .empty{text-align:center;padding:44px 16px;color:var(--muted);font-size:13px;line-height:1.9}
 .empty .e-icon{font-size:40px;display:block;margin-bottom:10px}
-
-/* ── SPINNER ── */
 .spinner{width:17px;height:17px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── BOTTOM NAV ── */
 .bnav{display:flex;background:white;border-top:1px solid var(--border);flex-shrink:0;box-shadow:0 -2px 12px rgba(26,26,46,.06)}
 .bni{flex:1;padding:9px 4px 13px;text-align:center;font-size:10px;color:var(--muted);cursor:pointer;border:none;background:transparent;font-family:var(--font);transition:color .15s}
 .bni .ni{font-size:22px;display:block;margin-bottom:2px}
 .bni.active{color:var(--accent)}
-
-/* ── REFRESH BTN ── */
-.refresh-btn{display:flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);color:var(--muted);background:white;border:1px solid var(--border);border-radius:8px;padding:5px 10px;cursor:pointer;float:right;margin-top:-2px;transition:all .15s}
-.refresh-btn:hover{color:var(--ink);border-color:var(--ink)}
-.refresh-btn.spinning .spin-icon{display:inline-block;animation:spin .7s linear infinite}
+.refresh-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);color:var(--muted);background:white;border:1px solid var(--border);border-radius:8px;padding:5px 10px;cursor:pointer;margin-top:10px;transition:all .15s}
+.refresh-btn:hover{color:var(--ink)}
+.spinning .spin-icon{animation:spin .7s linear infinite;display:inline-block}
+.progress-bar{width:100%;height:4px;background:var(--paper3);border-radius:2px;margin-top:8px;overflow:hidden;display:none}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .5s ease}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-inner">
     <div class="brand">
@@ -183,7 +140,6 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
   <div class="tab active" onclick="go('dash')">&#128202; Dashboard</div>
   <div class="tab" onclick="go('stock')">&#128230; &#xe2a;&#xe15;&#xe47;&#xe2d;&#xe01;</div>
@@ -191,59 +147,27 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
   <div class="tab" onclick="go('scan')">&#128247; &#xe2a;&#xe41;&#xe01;&#xe19;</div>
 </div>
 
-<!-- SCREEN -->
 <div class="screen">
 
-  <!-- ══ DASHBOARD ══ -->
   <div class="view active" id="view-dash">
-    <!-- Summary -->
     <div class="sum-grid">
-      <div class="sum-card">
-        <div class="sum-val" id="dTotalSku" style="color:var(--blue)">—</div>
-        <div class="sum-lbl">SKU ทั้งหมด</div>
-      </div>
-      <div class="sum-card">
-        <div class="sum-val" id="dLow" style="color:var(--gold)">—</div>
-        <div class="sum-lbl">&#xe43;&#xe01;&#xe25;&#xe49;&#xe2b;&#xe21;&#xe14;</div>
-      </div>
-      <div class="sum-card">
-        <div class="sum-val" id="dOut" style="color:var(--accent)">—</div>
-        <div class="sum-lbl">&#xe2b;&#xe21;&#xe14;&#xe41;&#xe25;&#xe49;&#xe27;</div>
-      </div>
+      <div class="sum-card"><div class="sum-val" id="dTotalSku" style="color:var(--blue)">0</div><div class="sum-lbl">SKU &#xe17;&#xe31;&#xe49;&#xe07;&#xe2b;&#xe21;&#xe14;</div></div>
+      <div class="sum-card"><div class="sum-val" id="dLow" style="color:var(--gold)">0</div><div class="sum-lbl">&#xe43;&#xe01;&#xe25;&#xe49;&#xe2b;&#xe21;&#xe14;</div></div>
+      <div class="sum-card"><div class="sum-val" id="dOut" style="color:var(--accent)">0</div><div class="sum-lbl">&#xe2b;&#xe21;&#xe14;&#xe41;&#xe25;&#xe49;&#xe27;</div></div>
     </div>
-
-    <!-- Alert banner -->
     <div class="alert-banner" id="alertBanner" onclick="go('stock')" style="display:none">
       <div class="ab-icon">&#9888;&#65039;</div>
-      <div class="ab-body">
-        <div class="ab-title" id="alertTitle">&#xe2a;&#xe34;&#xe19;&#xe04;&#xe49;&#xe32;&#xe43;&#xe01;&#xe25;&#xe49;&#xe2b;&#xe21;&#xe14; / &#xe2b;&#xe21;&#xe14;</div>
-        <div class="ab-sub" id="alertSub">&#xe14;&#xe39;&#xe23;&#xe32;&#xe22;&#xe25;&#xe30;&#xe40;&#xe2d;&#xe35;&#xe22;&#xe14;</div>
-      </div>
+      <div class="ab-body"><div class="ab-title" id="alertTitle"></div><div class="ab-sub">&#xe14;&#xe39;&#xe23;&#xe32;&#xe22;&#xe25;&#xe30;&#xe40;&#xe2d;&#xe35;&#xe22;&#xe14;</div></div>
       <div class="ab-arr">&#8250;</div>
     </div>
-
-    <!-- Today stats -->
-    <div class="sec-label">&#xe27;&#xe31;&#xe19;&#xe19;&#xe35;&#xe49; — <span id="todayDate" style="font-weight:500;color:var(--ink)"></span></div>
+    <div class="sec-label">&#xe27;&#xe31;&#xe19;&#xe19;&#xe35;&#xe49; <span id="todayDate" style="color:var(--ink);font-weight:600;text-transform:none;letter-spacing:0"></span></div>
     <div class="sum-grid" style="margin-bottom:14px">
-      <div class="sum-card">
-        <div class="sum-val" id="dInToday" style="color:var(--green)">0</div>
-        <div class="sum-lbl">IN &#xe27;&#xe31;&#xe19;&#xe19;&#xe35;&#xe49;</div>
-      </div>
-      <div class="sum-card">
-        <div class="sum-val" id="dOutToday" style="color:var(--accent)">0</div>
-        <div class="sum-lbl">OUT &#xe27;&#xe31;&#xe19;&#xe19;&#xe35;&#xe49;</div>
-      </div>
-      <div class="sum-card">
-        <div class="sum-val" id="dScansToday" style="color:var(--ink)">0</div>
-        <div class="sum-lbl">&#xe2a;&#xe41;&#xe01;&#xe19;&#xe27;&#xe31;&#xe19;&#xe19;&#xe35;&#xe49;</div>
-      </div>
+      <div class="sum-card"><div class="sum-val" id="dInToday" style="color:var(--green)">0</div><div class="sum-lbl">IN</div></div>
+      <div class="sum-card"><div class="sum-val" id="dOutToday" style="color:var(--accent)">0</div><div class="sum-lbl">OUT</div></div>
+      <div class="sum-card"><div class="sum-val" id="dScansToday" style="color:var(--ink)">0</div><div class="sum-lbl">&#xe2a;&#xe41;&#xe01;&#xe19;</div></div>
     </div>
-
-    <!-- Recent activity -->
-    <div class="sec-label" style="margin-top:0">&#xe01;&#xe34;&#xe08;&#xe01;&#xe23;&#xe23;&#xe21;&#xe25;&#xe48;&#xe32;&#xe2a;&#xe38;&#xe14;</div>
+    <div class="sec-label">&#xe01;&#xe34;&#xe08;&#xe01;&#xe23;&#xe23;&#xe21;&#xe25;&#xe48;&#xe32;&#xe2a;&#xe38;&#xe14;</div>
     <div id="recentLog"></div>
-
-    <!-- Reload -->
     <div style="text-align:center;margin-top:12px">
       <button class="refresh-btn" id="refreshBtn" onclick="loadFromSheets()">
         <span class="spin-icon">&#8635;</span> &#xe42;&#xe2b;&#xe25;&#xe14;&#xe02;&#xe49;&#xe2d;&#xe21;&#xe39;&#xe25;&#xe43;&#xe2b;&#xe21;&#xe48;
@@ -251,7 +175,6 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
     </div>
   </div>
 
-  <!-- ══ STOCK ══ -->
   <div class="view" id="view-stock">
     <div class="search-wrap"><span class="s-icon">&#128269;</span><input placeholder="&#xe04;&#xe49;&#xe19;&#xe2b;&#xe32;&#xe2a;&#xe34;&#xe19;&#xe04;&#xe49;&#xe32;..." id="skuSearch" oninput="renderStock()"></div>
     <div class="chips" id="stockChips">
@@ -263,7 +186,6 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
     <div id="stockList"></div>
   </div>
 
-  <!-- ══ LOG ══ -->
   <div class="view" id="view-log">
     <div class="chips" id="logChips">
       <span class="chip active" onclick="setLogFilter('all',this)">&#xe17;&#xe31;&#xe49;&#xe07;&#xe2b;&#xe21;&#xe14;</span>
@@ -273,25 +195,14 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
     <div id="logList"></div>
   </div>
 
-  <!-- ══ SCAN ══ -->
   <div class="view" id="view-scan">
-    <!-- Setup -->
-    <div class="setup-card" id="setupCard">
-      <div class="setup-title">&#9881;&#65039; &#xe15;&#xe31;&#xe49;&#xe07;&#xe04;&#xe48;&#xe32; Apps Script URL</div>
-      <div class="setup-desc">&#xe43;&#xe2a;&#xe48; URL &#xe02;&#xe2d;&#xe07; Google Apps Script Web App<br>&#xe2a;&#xe23;&#xe49;&#xe32;&#xe07;&#xe08;&#xe32;&#xe01;&#xe44;&#xe1f;&#xe25;&#xe4c; haiyeng_apps_script.gs</div>
+    <div class="setup-card hide" id="setupCard">
+      <div class="setup-title">&#9881;&#65039; Apps Script URL</div>
+      <div class="setup-desc">&#xe43;&#xe2a;&#xe48; URL &#xe02;&#xe2d;&#xe07; Google Apps Script</div>
       <input class="setup-input" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec">
       <button class="setup-save" onclick="saveUrl()">&#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;</button>
-      <div class="setup-ok" id="setupOk">&#10003; &#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;&#xe41;&#xe25;&#xe49;&#xe27; — &#xe1e;&#xe23;&#xe49;&#xe2d;&#xe21;&#xe43;&#xe0a;&#xe49;&#xe07;&#xe32;&#xe19;</div>
+      <div class="setup-ok" id="setupOk">&#10003; &#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;&#xe41;&#xe25;&#xe49;&#xe27;</div>
     </div>
-    <!-- Sheets URL for dashboard -->
-    <div class="setup-card" id="setupSheets" style="margin-top:0">
-      <div class="setup-title">&#128202; Google Sheets URL (&#xe2a;&#xe33;&#xe2b;&#xe23;&#xe31;&#xe1a; Dashboard)</div>
-      <div class="setup-desc">&#xe43;&#xe2a;&#xe48; URL &#xe02;&#xe2d;&#xe07; Google Sheet &#xe40;&#xe1e;&#xe37;&#xe48;&#xe2d;&#xe14;&#xe36;&#xe07;&#xe02;&#xe49;&#xe2d;&#xe21;&#xe39;&#xe25;&#xe21;&#xe32;&#xe41;&#xe2a;&#xe14;&#xe07;</div>
-      <input class="setup-input" id="sheetsUrl" placeholder="https://docs.google.com/spreadsheets/d/...">
-      <button class="setup-save" onclick="saveSheetsUrl()">&#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;</button>
-      <div class="setup-ok" id="sheetsOk">&#10003; &#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;&#xe41;&#xe25;&#xe49;&#xe27;</div>
-    </div>
-
     <div class="sec-label">&#xe1b;&#xe23;&#xe30;&#xe40;&#xe20;&#xe17;&#xe40;&#xe2d;&#xe01;&#xe2a;&#xe32;&#xe23;</div>
     <div class="doc-row">
       <div class="doc-card sel-green" id="din" onclick="setDocType('in')">
@@ -305,20 +216,18 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
         <div class="doc-sub">OUT &middot; Selling bill</div>
       </div>
     </div>
-
     <div class="sec-label">&#xe23;&#xe39;&#xe1b;&#xe40;&#xe2d;&#xe01;&#xe2a;&#xe32;&#xe23;</div>
     <div class="upload-zone" id="zone">
       <input type="file" accept="image/*" id="fileIn" onchange="onFile(event)">
       <span class="uz-icon">&#128247;</span>
       <div class="uz-title">&#xe41;&#xe15;&#xe30;&#xe40;&#xe1e;&#xe37;&#xe48;&#xe2d;&#xe16;&#xe48;&#xe32;&#xe22;&#xe23;&#xe39;&#xe1b;</div>
-      <div class="uz-sub">&#xe25;&#xe32;&#xe22;&#xe21;&#xe37;&#xe2d; &#xe44;&#xe17;&#xe22;/&#xe2d;&#xe31;&#xe07;&#xe01;&#xe24;&#xe29;/&#xe1c;&#xe2a;&#xe21; &#xe17;&#xe38;&#xe01;&#xe23;&#xe39;&#xe1b;&#xe41;&#xe1a;&#xe1a;</div>
+      <div class="uz-sub">&#xe25;&#xe32;&#xe22;&#xe21;&#xe37;&#xe2d; &#xe44;&#xe17;&#xe22;/&#xe2d;&#xe31;&#xe07;&#xe01;&#xe24;&#xe29;/&#xe1c;&#xe2a;&#xe21;</div>
     </div>
     <div class="change-bar" id="changeBar" onclick="resetFile()">&#128260; &#xe40;&#xe1b;&#xe25;&#xe35;&#xe48;&#xe22;&#xe19;&#xe23;&#xe39;&#xe1b;</div>
-
     <button class="send-btn" id="sendBtn" onclick="sendScan()" disabled>
       <span id="sendTxt">&#128228; &#xe2a;&#xe48;&#xe07;&#xe41;&#xe25;&#xe30;&#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;&#xe2a;&#xe15;&#xe47;&#xe2d;&#xe01;</span>
     </button>
-
+    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     <div class="result-card" id="resultCard">
       <div class="rc-head loading" id="rcHead">
         <span class="rc-icon" id="rcIcon">&#9203;</span>
@@ -329,9 +238,8 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
     </div>
   </div>
 
-</div><!-- /screen -->
+</div>
 
-<!-- BOTTOM NAV -->
 <div class="bnav">
   <button class="bni active" onclick="go('dash')"><span class="ni">&#128202;</span>Dashboard</button>
   <button class="bni" onclick="go('stock')"><span class="ni">&#128230;</span>&#xe2a;&#xe15;&#xe47;&#xe2d;&#xe01;</button>
@@ -340,316 +248,257 @@ body{font-family:var(--font);background:var(--paper);color:var(--ink);display:fl
 </div>
 
 <script>
-// ══ SKU MASTER LIST ══
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxZTEtcG6bAFdgKflVn2psTL4lx5l3treaGuvsYjshXiGQh_5eLjOfXXsB1J73Z9LA/exec';
 const SKUS = [
-  {code:'PLT-001',name:'ถุงพลาสติก PE 30x40',unit:'ถุง',minQty:1000},
-  {code:'PLT-002',name:'ถุงพลาสติก PE 40x60',unit:'ถุง',minQty:500},
-  {code:'PLT-003',name:'ถุงพลาสติก PP ใส 20x30',unit:'ถุง',minQty:1000},
-  {code:'PLT-004',name:'ถุงซิป 15x20',unit:'ถุง',minQty:500},
-  {code:'PLT-005',name:'ถุงหูหิ้ว ขาว S',unit:'ถุง',minQty:500},
-  {code:'PLT-006',name:'ถุงหูหิ้ว ขาว M',unit:'ถุง',minQty:500},
-  {code:'PLT-007',name:'ถุงหูหิ้ว ขาว L',unit:'ถุง',minQty:300},
-  {code:'PLT-008',name:'ฟิล์มยืด PE Wrap',unit:'ม้วน',minQty:20},
-  {code:'PLT-009',name:'เม็ดพลาสติก PP',unit:'กก.',minQty:100},
-  {code:'PLT-010',name:'เม็ดพลาสติก PE',unit:'กก.',minQty:100},
-  {code:'PLT-011',name:'สี Masterbatch ขาว',unit:'กก.',minQty:20},
-  {code:'PLT-012',name:'สี Masterbatch ดำ',unit:'กก.',minQty:20},
-  {code:'PLT-013',name:'กล่องพลาสติก PP ใส',unit:'ใบ',minQty:200},
-  {code:'PLT-014',name:'ฝาครอบพลาสติก',unit:'ชิ้น',minQty:500},
-  {code:'PLT-015',name:'เชือกฟาง',unit:'ม้วน',minQty:30},
-  {code:'PLT-016',name:'เทปพันสายไฟ',unit:'ม้วน',minQty:50},
-  {code:'PLT-017',name:'ถุงขยะดำ 30x40',unit:'ถุง',minQty:300},
-  {code:'PLT-018',name:'ถุงขยะดำ 50x60',unit:'ถุง',minQty:200},
-  {code:'PLT-019',name:'ถาดพลาสติก PP',unit:'ใบ',minQty:100},
-  {code:'PLT-020',name:'ฝาปิดพลาสติก กลม',unit:'ชิ้น',minQty:300},
+  {code:"PLT-001",name:"ถุงพลาสติก PE 30x40",unit:"ถุง",minQty:1000},
+  {code:"PLT-002",name:"ถุงพลาสติก PE 40x60",unit:"ถุง",minQty:500},
+  {code:"PLT-003",name:"ถุงพลาสติก PP ใส 20x30",unit:"ถุง",minQty:1000},
+  {code:"PLT-004",name:"ถุงซิป 15x20",unit:"ถุง",minQty:500},
+  {code:"PLT-005",name:"ถุงหูหิ้ว ขาว S",unit:"ถุง",minQty:500},
+  {code:"PLT-006",name:"ถุงหูหิ้ว ขาว M",unit:"ถุง",minQty:500},
+  {code:"PLT-007",name:"ถุงหูหิ้ว ขาว L",unit:"ถุง",minQty:300},
+  {code:"PLT-008",name:"ฟิล์มยืด PE Wrap",unit:"ม้วน",minQty:20},
+  {code:"PLT-009",name:"เม็ดพลาสติก PP",unit:"กก.",minQty:100},
+  {code:"PLT-010",name:"เม็ดพลาสติก PE",unit:"กก.",minQty:100},
+  {code:"PLT-011",name:"สี Masterbatch ขาว",unit:"กก.",minQty:20},
+  {code:"PLT-012",name:"สี Masterbatch ดำ",unit:"กก.",minQty:20},
+  {code:"PLT-013",name:"กล่องพลาสติก PP ใส",unit:"ใบ",minQty:200},
+  {code:"PLT-014",name:"ฝาครอบพลาสติก",unit:"ชิ้น",minQty:500},
+  {code:"PLT-015",name:"เชือกฟาง",unit:"ม้วน",minQty:30},
+  {code:"PLT-016",name:"เทปพันสายไฟ",unit:"ม้วน",minQty:50},
+  {code:"PLT-017",name:"ถุงขยะดำ 30x40",unit:"ถุง",minQty:300},
+  {code:"PLT-018",name:"ถุงขยะดำ 50x60",unit:"ถุง",minQty:200},
+  {code:"PLT-019",name:"ถาดพลาสติก PP",unit:"ใบ",minQty:100},
+  {code:"PLT-020",name:"ฝาปิดพลาสติก กลม",unit:"ชิ้น",minQty:300},
 ];
 
-// ══ STATE ══
-let txns = [];      // loaded from Sheets or local
-let stockMap = {};  // computed from txns
-let docType = 'in';
-let imgB64 = null, imgMime = 'image/jpeg';
-let stockFilter = 'all', logFilter = 'all';
+let txns=[],stockMap={},docType="in",imgB64=null,imgMime="image/jpeg",stockFilter="all",logFilter="all";
 
-// ══ INIT ══
-window.onload = () => {
-  document.getElementById('todayDate').textContent =
-    new Date().toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'});
-
-  const gasUrl=localStorage.getItem('gasUrl') || 'https://script.google.com/macros/s/AKfycbxZTEtcG6bAFdgKflVn2psTL4lx5l3treaGuvsYjshXiGQh_5eLjOfXXsB1J73Z9LA/exec';
-  const sh = localStorage.getItem('sheetsUrl') || '';
-  if(gasUrl){ document.getElementById('scriptUrl').value=gasUrl; document.getElementById('setupCard').classList.add('hide'); }
-  if(sh){ document.getElementById('sheetsUrl').value=sh; document.getElementById('setupSheets').classList.add('hide'); }
-
+window.onload=()=>{
+  document.getElementById("todayDate").textContent=new Date().toLocaleDateString("th-TH",{day:"numeric",month:"long"});
   loadLocal();
-  if(sh) loadFromSheets();
+  loadFromSheets();
 };
 
-// ══ SETTINGS ══
 function saveUrl(){
-  const u = document.getElementById('scriptUrl').value.trim();
-  if(!u){alert('กรุณาใส่ URL');return;}
-  localStorage.setItem('gasUrl', u);
-  document.getElementById('setupOk').style.display='block';
-  setTimeout(()=>document.getElementById('setupCard').classList.add('hide'),1200);
-}
-function saveSheetsUrl(){
-  const u = document.getElementById('sheetsUrl').value.trim();
-  if(!u){alert('กรุณาใส่ URL');return;}
-  localStorage.setItem('sheetsUrl', u);
-  document.getElementById('sheetsOk').style.display='block';
-  setTimeout(()=>{document.getElementById('setupSheets').classList.add('hide');loadFromSheets();},1200);
+  const u=document.getElementById("scriptUrl").value.trim();
+  if(!u)return;
+  localStorage.setItem("gasUrl",u);
+  document.getElementById("setupOk").style.display="block";
+  setTimeout(()=>document.getElementById("setupCard").classList.add("hide"),1200);
 }
 
-// ══ LOAD FROM SHEETS (via Apps Script GET) ══
 async function loadFromSheets(){
-  const sheetsUrl = localStorage.getItem('sheetsUrl');
-  const gasUrl = localStorage.getItem('gasUrl');
-  if(!gasUrl) return;
-
-  const btn = document.getElementById('refreshBtn');
-  if(btn) btn.classList.add('spinning');
-
-  try {
-    // Call Apps Script with action=getData to get transactions JSON
-    const url = gasUrl + '?action=getData';
-    const res = await fetch(url);
-    const data = await res.json();
+  const btn=document.getElementById("refreshBtn");
+  if(btn)btn.classList.add("spinning");
+  try{
+    const res=await fetch(GAS_URL+"?action=getData");
+    const data=await res.json();
     if(data.transactions){
-      txns = data.transactions;
-      localStorage.setItem('haiyeng_txns', JSON.stringify(txns));
-      computeStock();
-      renderAll();
+      txns=data.transactions;
+      localStorage.setItem("haiyeng_txns",JSON.stringify(txns));
+      computeStock();renderAll();
     }
-  } catch(e) {
-    // fallback to local
-    loadLocal();
-  } finally {
-    if(btn) btn.classList.remove('spinning');
-  }
+  }catch(e){loadLocal();}
+  finally{if(btn)btn.classList.remove("spinning");}
 }
 
 function loadLocal(){
-  try{ txns = JSON.parse(localStorage.getItem('haiyeng_txns')||'[]'); }catch(e){ txns=[]; }
-  computeStock();
-  renderAll();
+  try{txns=JSON.parse(localStorage.getItem("haiyeng_txns")||"[]");}catch(e){txns=[];}
+  computeStock();renderAll();
 }
 
-// ══ COMPUTE STOCK FROM TRANSACTIONS ══
 function computeStock(){
-  stockMap = {};
-  // init all known SKUs at 0
-  SKUS.forEach(s => { stockMap[s.code] = {code:s.code, name:s.name, unit:s.unit, minQty:s.minQty, qty:0}; });
-  // apply transactions
-  txns.forEach(tx => {
-    const key = tx.skuCode || tx.sku_code;
-    if(!key) return;
-    if(!stockMap[key]) stockMap[key] = {code:key, name:tx.name||key, unit:tx.unit||'', minQty:0, qty:0};
-    stockMap[key].qty += tx.type==='IN' ? Number(tx.qty) : -Number(tx.qty);
+  stockMap={};
+  SKUS.forEach(s=>{stockMap[s.code]={code:s.code,name:s.name,unit:s.unit,minQty:s.minQty,qty:0};});
+  txns.forEach(tx=>{
+    const key=tx.skuCode||tx.sku_code;if(!key)return;
+    if(!stockMap[key])stockMap[key]={code:key,name:tx.name||key,unit:tx.unit||"",minQty:0,qty:0};
+    stockMap[key].qty+=tx.type==="IN"?Number(tx.qty):-Number(tx.qty);
   });
 }
 
-// ══ RENDER ALL ══
-function renderAll(){ renderDash(); renderStock(); renderLog(); }
+function renderAll(){renderDash();renderStock();renderLog();}
 
-// ══ DASHBOARD ══
 function renderDash(){
-  const items = Object.values(stockMap);
-  const total = items.length;
-  const low = items.filter(s=>s.qty>0 && s.qty<=s.minQty).length;
-  const out = items.filter(s=>s.qty<=0).length;
-
-  document.getElementById('dTotalSku').textContent = total;
-  document.getElementById('dLow').textContent = low;
-  document.getElementById('dOut').textContent = out;
-
-  // Alert banner
-  const banner = document.getElementById('alertBanner');
-  if(low+out > 0){
-    banner.style.display='flex';
-    document.getElementById('alertTitle').textContent = `${out} รายการหมด · ${low} รายการใกล้หมด`;
-    document.getElementById('alertSub').textContent = 'แตะเพื่อดูรายละเอียด';
-  } else {
-    banner.style.display='none';
-  }
-
-  // Today stats
-  const today = new Date().toISOString().slice(0,10);
-  const todayTxns = txns.filter(t=>t.date===today);
-  const inToday = todayTxns.filter(t=>t.type==='IN').reduce((a,t)=>a+Number(t.qty),0);
-  const outToday = todayTxns.filter(t=>t.type==='OUT').reduce((a,t)=>a+Number(t.qty),0);
-  document.getElementById('dInToday').textContent = inToday;
-  document.getElementById('dOutToday').textContent = outToday;
-  document.getElementById('dScansToday').textContent = todayTxns.length;
-
-  // Recent log (last 5)
-  const recent = txns.slice(0,5);
-  document.getElementById('recentLog').innerHTML = recent.length ? recent.map(tx=>logRowHtml(tx)).join('') :
-    '<div class="empty"><span class="e-icon">&#128202;</span>ยังไม่มีรายการ<br>สแกนเอกสารแรกได้เลย</div>';
+  const items=Object.values(stockMap);
+  const low=items.filter(s=>s.qty>0&&s.qty<=s.minQty).length;
+  const out=items.filter(s=>s.qty<=0).length;
+  document.getElementById("dTotalSku").textContent=items.length;
+  document.getElementById("dLow").textContent=low;
+  document.getElementById("dOut").textContent=out;
+  const banner=document.getElementById("alertBanner");
+  if(low+out>0){banner.style.display="flex";document.getElementById("alertTitle").textContent=out+" &#xe23;&#xe32;&#xe22;&#xe01;&#xe32;&#xe23;&#xe2b;&#xe21;&#xe14; · "+low+" &#xe43;&#xe01;&#xe25;&#xe49;&#xe2b;&#xe21;&#xe14;";}
+  else banner.style.display="none";
+  const today=new Date().toISOString().slice(0,10);
+  const td=txns.filter(t=>t.date===today);
+  document.getElementById("dInToday").textContent=td.filter(t=>t.type==="IN").reduce((a,t)=>a+Number(t.qty),0);
+  document.getElementById("dOutToday").textContent=td.filter(t=>t.type==="OUT").reduce((a,t)=>a+Number(t.qty),0);
+  document.getElementById("dScansToday").textContent=td.length;
+  const rec=txns.slice(0,6);
+  document.getElementById("recentLog").innerHTML=rec.length?rec.map(logRowHtml).join(""):"<div class=\"empty\"><span class=\"e-icon\">&#128202;</span>&#xe22;&#xe31;&#xe07;&#xe44;&#xe21;&#xe48;&#xe21;&#xe35;&#xe23;&#xe32;&#xe22;&#xe01;&#xe32;&#xe23;</div>";
 }
 
-// ══ STOCK ══
-function setFilter(f,el){
-  stockFilter=f;
-  document.querySelectorAll('#stockChips .chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  renderStock();
-}
-function renderStock(){
-  const q=(document.getElementById('skuSearch')?.value||'').toLowerCase();
-  let items=Object.values(stockMap).filter(s=>!q||s.name.toLowerCase().includes(q)||(s.code||'').toLowerCase().includes(q));
-  if(stockFilter==='low') items=items.filter(s=>s.qty>0&&s.qty<=s.minQty);
-  if(stockFilter==='out') items=items.filter(s=>s.qty<=0);
-  if(stockFilter==='ok') items=items.filter(s=>s.qty>s.minQty);
-  items.sort((a,b)=>a.qty-b.qty);
-
-  if(!items.length){
-    document.getElementById('stockList').innerHTML='<div class="empty"><span class="e-icon">&#128230;</span>ไม่พบสินค้า</div>';
-    return;
-  }
-  document.getElementById('stockList').innerHTML=items.map(s=>{
-    const pct=s.minQty?Math.min(100,(s.qty/Math.max(s.minQty*3,1))*100):50;
-    const st=s.qty<=0?'out':s.qty<=s.minQty?'low':'ok';
-    const qc=st==='out'?'qty-red':st==='low'?'qty-gold':'qty-green';
-    const pc=st==='out'?'var(--accent)':st==='low'?'var(--gold)':'var(--green)';
-    return `<div class="sku-row ${st}">
-      <div class="sku-body">
-        <div class="sku-name">${s.name}</div>
-        <div class="sku-code">${s.code}</div>
-        <div class="pbar"><div class="pfill" style="width:${pct}%;background:${pc}"></div></div>
-      </div>
-      <div class="sku-right">
-        <div class="sku-qty ${qc}">${s.qty}</div>
-        <div class="sku-unit">${s.unit}</div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-// ══ LOG ══
-function setLogFilter(f,el){
-  logFilter=f;
-  document.querySelectorAll('#logChips .chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  renderLog();
-}
 function logRowHtml(tx){
-  return `<div class="log-row">
-    <div class="log-top">
-      <span class="badge ${tx.type==='IN'?'badge-in':'badge-out'}">${tx.type}</span>
-      <span class="log-name">${tx.name||tx.skuCode||''}</span>
-      <span class="log-amt" style="color:${tx.type==='IN'?'var(--green)':'var(--accent)'}">${tx.type==='IN'?'+':'-'}${tx.qty} ${tx.unit||''}</span>
-    </div>
-    <div class="log-meta">${tx.date||''} ${tx.time||''} · ${tx.skuCode||''}</div>
-  </div>`;
-}
-function renderLog(){
-  let list=[...txns];
-  if(logFilter!=='all') list=list.filter(t=>t.type===logFilter);
-  document.getElementById('logList').innerHTML=list.length
-    ? list.slice(0,100).map(logRowHtml).join('')
-    : '<div class="empty"><span class="e-icon">&#128203;</span>ยังไม่มีรายการ</div>';
+  return "<div class=\"log-row\"><div class=\"log-top\"><span class=\"badge "+(tx.type==="IN"?"badge-in":"badge-out")+"\">"+(tx.type)+"</span><span class=\"log-name\">"+(tx.name||tx.skuCode||"")+"</span><span class=\"log-amt\" style=\"color:"+(tx.type==="IN"?"var(--green)":"var(--accent)")+"\">"+(tx.type==="IN"?"+":"-")+(tx.qty)+" "+(tx.unit||"")+"</span></div><div class=\"log-meta\">"+(tx.date||"")+" "+(tx.time||"")+" · "+(tx.skuCode||"")+"</div></div>";
 }
 
-// ══ SCAN ══
+function setFilter(f,el){stockFilter=f;document.querySelectorAll("#stockChips .chip").forEach(c=>c.classList.remove("active"));el.classList.add("active");renderStock();}
+function renderStock(){
+  const q=(document.getElementById("skuSearch")?.value||"").toLowerCase();
+  let items=Object.values(stockMap).filter(s=>!q||s.name.toLowerCase().includes(q)||s.code.toLowerCase().includes(q));
+  if(stockFilter==="out")items=items.filter(s=>s.qty<=0);
+  else if(stockFilter==="low")items=items.filter(s=>s.qty>0&&s.qty<=s.minQty);
+  else if(stockFilter==="ok")items=items.filter(s=>s.qty>s.minQty);
+  items.sort((a,b)=>a.qty-b.qty);
+  if(!items.length){document.getElementById("stockList").innerHTML="<div class=\"empty\"><span class=\"e-icon\">&#128230;</span>&#xe44;&#xe21;&#xe48;&#xe1e;&#xe1a;&#xe2a;&#xe34;&#xe19;&#xe04;&#xe49;&#xe32;</div>";return;}
+  document.getElementById("stockList").innerHTML=items.map(s=>{
+    const pct=s.minQty?Math.min(100,(s.qty/Math.max(s.minQty*3,1))*100):50;
+    const st=s.qty<=0?"out":s.qty<=s.minQty?"low":"ok";
+    const qc=st==="out"?"qty-red":st==="low"?"qty-gold":"qty-green";
+    const pc=st==="out"?"var(--accent)":st==="low"?"var(--gold)":"var(--green)";
+    return "<div class=\"sku-row "+st+"\"><div class=\"sku-body\"><div class=\"sku-name\">"+s.name+"</div><div class=\"sku-code\">"+s.code+"</div><div class=\"pbar\"><div class=\"pfill\" style=\"width:"+pct+"%;background:"+pc+"\"></div></div></div><div class=\"sku-right\"><div class=\"sku-qty "+qc+"\">"+s.qty+"</div><div class=\"sku-unit\">"+s.unit+"</div></div></div>";
+  }).join("");
+}
+
+function setLogFilter(f,el){logFilter=f;document.querySelectorAll("#logChips .chip").forEach(c=>c.classList.remove("active"));el.classList.add("active");renderLog();}
+function renderLog(){
+  let list=[...txns];if(logFilter!=="all")list=list.filter(t=>t.type===logFilter);
+  document.getElementById("logList").innerHTML=list.length?list.slice(0,100).map(logRowHtml).join(""):"<div class=\"empty\"><span class=\"e-icon\">&#128203;</span>&#xe22;&#xe31;&#xe07;&#xe44;&#xe21;&#xe48;&#xe21;&#xe35;&#xe23;&#xe32;&#xe22;&#xe01;&#xe32;&#xe23;</div>";
+}
+
 function setDocType(t){
   docType=t;
-  document.getElementById('din').className='doc-card'+(t==='in'?' sel-green':'');
-  document.getElementById('dout').className='doc-card'+(t==='out'?' sel-red':'');
+  document.getElementById("din").className="doc-card"+(t==="in"?" sel-green":"");
+  document.getElementById("dout").className="doc-card"+(t==="out"?" sel-red":"");
 }
+
 function onFile(e){
   const f=e.target.files[0];if(!f)return;
-  imgMime=f.type||'image/jpeg';
+  imgMime=f.type||"image/jpeg";
   const r=new FileReader();
   r.onload=ev=>{
-    imgB64=ev.target.result.split(',')[1];
-    const z=document.getElementById('zone');
-    z.classList.add('has-img');
-    z.querySelector('input').style.display='none';
-    let img=document.getElementById('prevImg');
-    if(!img){img=document.createElement('img');img.id='prevImg';z.appendChild(img);}
+    imgB64=ev.target.result.split(",")[1];
+    const z=document.getElementById("zone");
+    z.classList.add("has-img");z.querySelector("input").style.display="none";
+    let img=document.getElementById("prevImg");
+    if(!img){img=document.createElement("img");img.id="prevImg";z.appendChild(img);}
     img.src=ev.target.result;
-    document.getElementById('changeBar').style.display='block';
-    document.getElementById('sendBtn').disabled=false;
-    document.getElementById('resultCard').style.display='none';
+    document.getElementById("changeBar").style.display="block";
+    document.getElementById("sendBtn").disabled=false;
+    document.getElementById("resultCard").style.display="none";
   };
   r.readAsDataURL(f);
 }
+
 function resetFile(){
-  imgB64=null;
-  document.getElementById('fileIn').value='';
-  const z=document.getElementById('zone');
-  z.classList.remove('has-img');
-  z.querySelector('input').style.display='block';
-  const img=document.getElementById('prevImg');if(img)img.remove();
-  document.getElementById('changeBar').style.display='none';
-  document.getElementById('sendBtn').disabled=true;
-  document.getElementById('resultCard').style.display='none';
-  document.getElementById('againBtn').style.display='none';
+  imgB64=null;document.getElementById("fileIn").value="";
+  const z=document.getElementById("zone");z.classList.remove("has-img");z.querySelector("input").style.display="block";
+  const img=document.getElementById("prevImg");if(img)img.remove();
+  document.getElementById("changeBar").style.display="none";
+  document.getElementById("sendBtn").disabled=true;
+  document.getElementById("resultCard").style.display="none";
+  document.getElementById("againBtn").style.display="none";
+  document.getElementById("progressBar").style.display="none";
 }
+
+function setProgress(pct,text){
+  document.getElementById("progressBar").style.display="block";
+  document.getElementById("progressFill").style.width=pct+"%";
+  if(text)document.getElementById("rcSub").textContent=text;
+}
+
 async function sendScan(){
-  const url=localStorage.getItem('gasUrl') || 'https://script.google.com/macros/s/AKfycbxZTEtcG6bAFdgKflVn2psTL4lx5l3treaGuvsYjshXiGQh_5eLjOfXXsB1J73Z9LA/exec';
-  if(!url){document.getElementById('setupCard').classList.remove('hide');return;}
   if(!imgB64)return;
-  const btn=document.getElementById('sendBtn');
+  const btn=document.getElementById("sendBtn");
   btn.disabled=true;
-  document.getElementById('sendTxt').innerHTML='<div class="spinner"></div> กำลังส่ง AI...';
-  const card=document.getElementById('resultCard');
-  card.style.display='block';
-  document.getElementById('rcHead').className='rc-head loading';
-  document.getElementById('rcIcon').textContent='⏳';
-  document.getElementById('rcTitle').textContent='กำลังอ่านเอกสาร...';
-  document.getElementById('rcSub').textContent='Gemini AI กำลังวิเคราะห์ลายมือ';
-  document.getElementById('rcItems').innerHTML='';
-  document.getElementById('againBtn').style.display='none';
+  document.getElementById("sendTxt").innerHTML="<div class=\"spinner\"></div> &#xe01;&#xe33;&#xe25;&#xe31;&#xe07;&#xe2a;&#xe48;&#xe07;...";
+  const card=document.getElementById("resultCard");
+  card.style.display="block";
+  document.getElementById("rcHead").className="rc-head loading";
+  document.getElementById("rcIcon").textContent="&#9203;";
+  document.getElementById("rcTitle").textContent="&#xe01;&#xe33;&#xe25;&#xe31;&#xe07;&#xe2a;&#xe48;&#xe07;&#xe2a;&#xe39;&#xe48; AI...";
+  document.getElementById("rcItems").innerHTML="";
+  document.getElementById("againBtn").style.display="none";
+  setProgress(10,"&#xe2a;&#xe48;&#xe07;&#xe23;&#xe39;&#xe1b;&#xe44;&#xe1b;&#xe22;&#xe31;&#xe07; Gemini AI...");
+
   try{
-    const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({imageBase64:imgB64,mimeType:imgMime,docType:docType,timestamp:new Date().toISOString()})});
-    const data=await res.json();
-    if(data.success){
-      // Add to local txns immediately
+    // Step 1: send image via no-cors POST (CORS workaround)
+    const fd=new FormData();
+    fd.append("imageBase64",imgB64);
+    fd.append("mimeType",imgMime);
+    fd.append("docType",docType);
+    fd.append("timestamp",new Date().toISOString());
+    
+    await fetch(GAS_URL,{method:"POST",body:fd,mode:"no-cors"});
+    setProgress(40,"AI &#xe01;&#xe33;&#xe25;&#xe31;&#xe07;&#xe2d;&#xe48;&#xe32;&#xe19;&#xe25;&#xe32;&#xe22;&#xe21;&#xe37;&#xe2d;...");
+    
+    // Step 2: wait for Apps Script to process (Gemini takes ~10-20s)
+    document.getElementById("rcTitle").textContent="AI &#xe01;&#xe33;&#xe25;&#xe31;&#xe07;&#xe27;&#xe34;&#xe40;&#xe04;&#xe23;&#xe32;&#xe30;&#xe2b;&#xe4c;...";
+    
+    let result=null;
+    const startTime=Date.now();
+    const maxWait=45000; // 45 seconds max
+    const pollInterval=3000; // check every 3 seconds
+    
+    while(Date.now()-startTime < maxWait){
+      await new Promise(r=>setTimeout(r,pollInterval));
+      const elapsed=Date.now()-startTime;
+      const pct=Math.min(90,40+(elapsed/maxWait)*50);
+      setProgress(pct,"&#xe23;&#xe2d;&#xe1c;&#xe25; AI... "+(Math.round(elapsed/1000))+"s");
+      
+      try{
+        const getRes=await fetch(GAS_URL+"?action=getLatest&t="+Date.now());
+        const getData=await getRes.json();
+        if(getData.success && getData.items && getData.items.length>0){
+          result=getData;
+          break;
+        }
+      }catch(e){}
+    }
+    
+    if(result){
+      setProgress(100,"&#xe2a;&#xe33;&#xe40;&#xe23;&#xe47;&#xe08;!");
+      // Save to local
       const now=new Date();
-      const dateStr=now.toISOString().slice(0,10);
-      const timeStr=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
-      (data.items||[]).forEach(it=>{
-        txns.unshift({date:dateStr,time:timeStr,skuCode:it.sku_code||'',name:it.name,type:it.type,qty:it.qty,unit:it.unit||''});
+      const ds=now.toISOString().slice(0,10);
+      const ts=now.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"});
+      result.items.forEach(it=>{
+        txns.unshift({date:ds,time:ts,skuCode:it.sku_code||"",name:it.name,type:it.type,qty:it.qty,unit:it.unit||""});
       });
-      localStorage.setItem('haiyeng_txns',JSON.stringify(txns.slice(0,300)));
-      computeStock(); renderAll();
-      document.getElementById('rcHead').className='rc-head ok';
-      document.getElementById('rcIcon').textContent='✅';
-      document.getElementById('rcTitle').textContent='บันทึกแล้ว '+(data.items?.length||0)+' รายการ';
-      document.getElementById('rcSub').textContent='ความแม่นยำ '+Math.round((data.confidence||0)*100)+'%';
-      document.getElementById('rcItems').innerHTML=(data.items||[]).map(it=>`
-        <div class="rc-item">
-          <span class="badge ${it.type==='IN'?'badge-in':'badge-out'}">${it.type}</span>
-          <div style="flex:1"><div class="rc-name">${it.name}</div><div class="rc-sku">${it.sku_code||'—'}</div></div>
-          <div><div class="rc-qty" style="color:${it.type==='IN'?'var(--green)':'var(--accent)'}">${it.type==='IN'?'+':'-'}${it.qty}</div><div style="font-size:10px;color:var(--muted)">${it.unit||''}</div></div>
-        </div>`).join('');
-    }else{throw new Error(data.error||'เกิดข้อผิดพลาด');}
+      localStorage.setItem("haiyeng_txns",JSON.stringify(txns.slice(0,300)));
+      computeStock();renderAll();
+      document.getElementById("rcHead").className="rc-head ok";
+      document.getElementById("rcIcon").textContent="&#9989;";
+      document.getElementById("rcTitle").textContent="&#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;&#xe41;&#xe25;&#xe49;&#xe27; "+result.items.length+" &#xe23;&#xe32;&#xe22;&#xe01;&#xe32;&#xe23;";
+      document.getElementById("rcSub").textContent="&#xe04;&#xe27;&#xe32;&#xe21;&#xe41;&#xe21;&#xe48;&#xe19;&#xe22;&#xe33; "+Math.round((result.confidence||0)*100)+"%";
+      document.getElementById("rcItems").innerHTML=result.items.map(it=>"<div class=\"rc-item\"><span class=\"badge "+(it.type==="IN"?"badge-in":"badge-out")+"\">"+(it.type)+"</span><div style=\"flex:1\"><div class=\"rc-name\">"+(it.name)+"</div><div class=\"rc-sku\">"+(it.sku_code||"—")+"</div></div><div><div class=\"rc-qty\" style=\"color:"+(it.type==="IN"?"var(--green)":"var(--accent)")+"\">"+(it.type==="IN"?"+":"-")+(it.qty)+"</div><div style=\"font-size:10px;color:var(--muted)\">"+(it.unit||"")+"</div></div></div>").join("");
+    } else {
+      throw new Error("AI &#xe43;&#xe0a;&#xe49;&#xe40;&#xe27;&#xe25;&#xe32;&#xe19;&#xe32;&#xe19;&#xe40;&#xe01;&#xe34;&#xe19;&#xe44;&#xe1b; — &#xe25;&#xe2d;&#xe07;&#xe43;&#xe2b;&#xe21;&#xe48;&#xe2d;&#xe35;&#xe01;&#xe04;&#xe23;&#xe31;&#xe49;&#xe07;");
+    }
   }catch(err){
-    document.getElementById('rcHead').className='rc-head err';
-    document.getElementById('rcIcon').textContent='❌';
-    document.getElementById('rcTitle').textContent='เกิดข้อผิดพลาด';
-    document.getElementById('rcSub').textContent=err.message;
-    document.getElementById('rcItems').innerHTML='<div style="padding:10px;font-size:12px;color:var(--muted)">ลองใหม่หรือแจ้งผู้จัดการ</div>';
+    document.getElementById("rcHead").className="rc-head err";
+    document.getElementById("rcIcon").textContent="&#10060;";
+    document.getElementById("rcTitle").textContent="&#xe40;&#xe01;&#xe34;&#xe14;&#xe02;&#xe49;&#xe2d;&#xe1c;&#xe34;&#xe14;&#xe1e;&#xe25;&#xe32;&#xe14;";
+    document.getElementById("rcSub").textContent=err.message;
+    document.getElementById("rcItems").innerHTML="<div style=\"padding:10px;font-size:12px;color:var(--muted)\">&#xe25;&#xe2d;&#xe07;&#xe43;&#xe2b;&#xe21;&#xe48;&#xe2b;&#xe23;&#xe37;&#xe2d;&#xe41;&#xe08;&#xe49;&#xe1c;&#xe39;&#xe49;&#xe08;&#xe31;&#xe14;&#xe01;&#xe32;&#xe23;</div>";
   }finally{
     btn.disabled=false;
-    document.getElementById('sendTxt').textContent='📤 ส่งและบันทึกสต็อก';
-    document.getElementById('againBtn').style.display='block';
+    document.getElementById("sendTxt").textContent="&#128228; &#xe2a;&#xe48;&#xe07;&#xe41;&#xe25;&#xe30;&#xe1a;&#xe31;&#xe19;&#xe17;&#xe36;&#xe01;&#xe2a;&#xe15;&#xe47;&#xe2d;&#xe01;";
+    document.getElementById("againBtn").style.display="block";
+    setTimeout(()=>document.getElementById("progressBar").style.display="none",2000);
   }
 }
 
-// ══ NAV ══
 function go(name){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.querySelectorAll('.tab,.bni').forEach(b=>b.classList.remove('active'));
-  document.getElementById('view-'+name).classList.add('active');
-  const idx={dash:0,stock:1,log:2,scan:3}[name];
-  document.querySelectorAll('.tab')[idx]?.classList.add('active');
-  document.querySelectorAll('.bni')[idx]?.classList.add('active');
-  if(name==='stock') renderStock();
-  if(name==='log') renderLog();
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.querySelectorAll(".tab,.bni").forEach(b=>b.classList.remove("active"));
+  document.getElementById("view-"+name).classList.add("active");
+  const i={dash:0,stock:1,log:2,scan:3}[name];
+  document.querySelectorAll(".tab")[i]?.classList.add("active");
+  document.querySelectorAll(".bni")[i]?.classList.add("active");
+  if(name==="stock")renderStock();
+  if(name==="log")renderLog();
 }
 </script>
 </body>

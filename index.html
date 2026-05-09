@@ -376,7 +376,7 @@ window.onload = () => {
   document.getElementById('todayDate').textContent =
     new Date().toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'});
 
-  const su = localStorage.getItem('gasUrl') || '';
+  const url=localStorage.getItem('gasUrl') || 'https://script.google.com/macros/s/AKfycbxZTEtcG6bAFdgKflVn2psTL4lx5l3treaGuvsYjshXiGQh_5eLjOfXXsB1J73Z9LA/exec';
   const sh = localStorage.getItem('sheetsUrl') || '';
   if(su){ document.getElementById('scriptUrl').value=su; document.getElementById('setupCard').classList.add('hide'); }
   if(sh){ document.getElementById('sheetsUrl').value=sh; document.getElementById('setupSheets').classList.add('hide'); }
